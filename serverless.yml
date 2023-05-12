@@ -1,0 +1,25 @@
+service: addPersonVersion3
+
+provider:
+  name: aws
+  runtime: nodejs16.x
+  role: arn:aws:iam::233784350905:role/addPersonAdmin
+  region: us-east-1
+
+functions:
+  addPerson:
+    handler: src/createUserVersion3.handler
+    events:
+      - http:
+          path: /createuser
+          method: post
+          cors:
+            origin: '*' # <-- Specify allowed origin
+            headers: # <-- Specify allowed headers
+              - Content-Type
+              - X-Amz-Date
+              - Authorization
+              - X-Api-Key
+              - X-Amz-Security-Token
+              - X-Amz-User-Agent
+            allowCredentials: false
